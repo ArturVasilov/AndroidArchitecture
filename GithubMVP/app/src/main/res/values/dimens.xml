@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="benefit_icon_margin_top">32dp</dimen>
+    <dimen name="benefit_icon_margin_bottom">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="benefit_text_size">18sp</dimen>
+    <dimen name="walkthrough_button_margin">8dp</dimen>
+    <dimen name="walkthrough_button_text_size">16sp</dimen>
+    <dimen name="recycler_title_text_size">18sp</dimen>
+    <dimen name="recycler_description_text_size">14sp</dimen>
+    <dimen name="middle_text">16sp</dimen>
+</resources>

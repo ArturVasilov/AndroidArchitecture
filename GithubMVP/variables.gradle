@@ -1,0 +1,4 @@
+ext {
+    clientId = '"a3fdd48caf571dec959d"'
+    clientSecret = '"b67880aacbbc441fb5d61dd134c24b9539264e15"'
+}
