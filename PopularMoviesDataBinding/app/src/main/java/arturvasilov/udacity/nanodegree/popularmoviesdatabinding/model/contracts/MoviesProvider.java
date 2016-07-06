@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.AppDelegate;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.sqlite.DatabaseProvider;
 
 import static arturvasilov.udacity.nanodegree.popularmoviesdatabinding.sqlite.DatabaseUtils.safeIntFromCursor;
@@ -27,7 +27,19 @@ public final class MoviesProvider {
             .appendPath(MovieTable.getTable().getTableName())
             .build();
 
+    public static void save(@NonNull Movie movie, @NonNull Type type) {
+        AppDelegate.getDb().insert(URI, toContentValues(movie, type));
+    }
+
+    public static void delete(@NonNull Movie movie) {
+        String where = MovieTable.Columns._ID + "=?";
+        AppDelegate.getDb().delete(URI, where, new String[]{String.valueOf(movie.getId())});
+    }
+
     public static void save(@NonNull List<Movie> movies, @NonNull Type type) {
+        String where = MovieTable.Columns.TYPE + "=?";
+        AppDelegate.getDb().delete(URI, where, new String[]{type.name()});
+
         ContentValues[] values = new ContentValues[movies.size()];
         for (int i = 0; i < movies.size(); i++) {
             values[i] = toContentValues(movies.get(i), type);

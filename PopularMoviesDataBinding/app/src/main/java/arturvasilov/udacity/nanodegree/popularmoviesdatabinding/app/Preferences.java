@@ -3,10 +3,10 @@ package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.AppDelegate;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.MoviesProvider;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.utils.TextUtils;
 
 /**
  * @author Artur Vasilov

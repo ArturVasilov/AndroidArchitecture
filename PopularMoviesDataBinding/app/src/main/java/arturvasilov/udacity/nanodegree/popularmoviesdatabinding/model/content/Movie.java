@@ -1,4 +1,4 @@
-package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model;
+package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,6 +29,8 @@ public class Movie implements Parcelable {
     @SerializedName("vote_average")
     private double mVoteAverage;
 
+    private boolean mIsFavourite;
+
     public Movie() {
     }
 
@@ -49,6 +51,10 @@ public class Movie implements Parcelable {
         mTitle = in.readString();
         mReleasedDate = in.readString();
         mVoteAverage = in.readDouble();
+
+        boolean[] values = new boolean[1];
+        in.readBooleanArray(values);
+        mIsFavourite = values[0];
     }
 
     public int getId() {
@@ -79,6 +85,14 @@ public class Movie implements Parcelable {
         return mVoteAverage;
     }
 
+    public boolean isFavourite() {
+        return mIsFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        mIsFavourite = favourite;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -92,6 +106,7 @@ public class Movie implements Parcelable {
         parcel.writeString(mTitle);
         parcel.writeString(mReleasedDate);
         parcel.writeDouble(mVoteAverage);
+        parcel.writeBooleanArray(new boolean[]{mIsFavourite});
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {

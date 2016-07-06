@@ -9,9 +9,13 @@
     <string name="movie_details">Movie details</string>
     <string name="rating">Rating \u2014 %1$s/%2$s</string>
     <string name="movie_title">%1$s \u2014 %2$s</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="reviews_title">Reviews</string>
     <string name="settings_movies_type_title">Movies type</string>
     <string name="settings_select_movies_type">Choose movies type</string>
     <string name="settings_movie_default_type">popular</string>
+    <string name="play_trailer">Play trailer</string>
+    <string name="favourite_button">Favourite movie</string>
 
     <string-array name="settings_movie_types">
         <item>Popular</item>

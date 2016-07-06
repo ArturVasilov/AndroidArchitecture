@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.activity.MovieDetailsActivity;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.activity.SettingsActivity;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.MoviesRouter;
 
 /**

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.ApiFactory;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.MoviesRepository;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.MoviesRepositoryImpl;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.RepositoryProvider;
 
 /**
@@ -19,7 +20,7 @@ public class AppDelegate extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        MoviesRepository repository = new MoviesRepository(ApiFactory.getMoviesService());
+        MoviesRepository repository = new MoviesRepositoryImpl(ApiFactory.getMoviesService());
         RepositoryProvider.setRepository(repository);
     }
 

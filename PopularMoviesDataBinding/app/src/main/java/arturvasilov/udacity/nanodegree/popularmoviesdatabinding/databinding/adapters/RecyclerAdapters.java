@@ -2,38 +2,35 @@ package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.ada
 
 import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.List;
 
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.BaseAdapter;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.EmptyRecyclerView;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.MoviesAdapter;
 
 /**
  * @author Artur Vasilov
  */
 public class RecyclerAdapters {
 
-    @BindingAdapter(value = {"app:layoutManager", "app:adapter", "app:empty", "app:onItemClick"}, requireAll = true)
+    @SuppressWarnings("unchecked")
+    @BindingAdapter(value = {"app:layoutManager", "app:adapter", "app:items", "app:empty", "app:onItemClick"}, requireAll = false)
     public static void initRecycler(@NonNull EmptyRecyclerView recycler, @NonNull RecyclerView.LayoutManager layoutManager,
-                                    @NonNull BaseAdapter adapter, @NonNull View emptyView,
-                                    @NonNull BaseAdapter.OnItemClickListener listener) {
+                                    @NonNull BaseAdapter adapter, @NonNull List<?> items, @Nullable View emptyView,
+                                    @Nullable BaseAdapter.OnItemClickListener listener) {
         recycler.setLayoutManager(layoutManager);
-        recycler.setEmptyView(emptyView);
         adapter.attachToRecyclerView(recycler);
-        //noinspection unchecked
-        adapter.setOnItemClickListener(listener);
-    }
-
-    @BindingAdapter("app:movies")
-    public static void setMovies(@NonNull EmptyRecyclerView recycler, @NonNull List<Movie> movies) {
-        MoviesAdapter adapter = (MoviesAdapter) recycler.getAdapter();
-        if (adapter != null) {
-            adapter.setNewValues(movies);
+        adapter.setNewValues(items);
+        if (emptyView != null) {
+            recycler.setEmptyView(emptyView);
         }
+        if (listener != null) {
+            adapter.setOnItemClickListener(listener);
+        }
+        recycler.setNestedScrollingEnabled(false);
     }
 
 }

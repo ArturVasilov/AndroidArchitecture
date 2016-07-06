@@ -4,44 +4,29 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.MoviesResponse;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Review;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Video;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.MoviesProvider;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.CursorListMapper;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.CursorObservable;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Artur Vasilov
  */
-public class MoviesRepository {
-
-    private final MovieService mService;
-
-    public MoviesRepository(@NonNull MovieService service) {
-        mService = service;
-    }
+public interface MoviesRepository {
 
     @NonNull
-    public Observable<List<Movie>> loadMovies(@NonNull MoviesProvider.Type type) {
-        Observable<List<Movie>> observable;
-        if (type == MoviesProvider.Type.FAVOURITE) {
-            observable = CursorObservable.create(MoviesProvider.movies(type))
-                    .map(new CursorListMapper<>(MoviesProvider::fromCursor));
-        } else if (type == MoviesProvider.Type.POPULAR) {
-            observable = mService.popularMovies().map(MoviesResponse::getMovies);
-        } else {
-            observable = mService.topRatedMovies().map(MoviesResponse::getMovies);
-        }
-        return observable
-                .onErrorResumeNext(throwable -> {
-                    return CursorObservable.create(MoviesProvider.movies(type))
-                            .map(new CursorListMapper<>(MoviesProvider::fromCursor));
-                })
-                .doOnNext(movies -> MoviesProvider.save(movies, type))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
+    Observable<List<Movie>> loadMovies(@NonNull MoviesProvider.Type type);
+
+    @NonNull
+    Observable<List<Review>> reviews(@NonNull Movie movie);
+
+    @NonNull
+    Observable<List<Video>> videos(@NonNull Movie movie);
+
+    @NonNull
+    Observable<Boolean> addToFavourite(@NonNull Movie movie);
+
+    @NonNull
+    Observable<Boolean> removeFromFavourite(@NonNull Movie movie);
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -18,7 +19,7 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.BR;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.R;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.RepositoryProvider;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.app.Preferences;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.MoviesProvider;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.MoviesRouter;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.RxLoader;
@@ -57,7 +58,8 @@ public class MoviesViewModel extends BaseObservable {
 
     public void onResume() {
         MoviesProvider.Type type = Preferences.getMoviesType();
-        if (mType != type) {
+        //reload if changed or may be favourite movie was deleted
+        if (mType != type || mType == MoviesProvider.Type.FAVOURITE) {
             mType = type;
             load(true);
         }
@@ -122,13 +124,15 @@ public class MoviesViewModel extends BaseObservable {
         notifyPropertyChanged(BR.refreshing);
     }
 
-    private void handleMovies(@NonNull List<Movie> movies) {
+    @VisibleForTesting
+    void handleMovies(@NonNull List<Movie> movies) {
         mMovies.clear();
         mMovies.addAll(movies);
         notifyPropertyChanged(BR.movies);
     }
 
-    private void handleError(@NonNull Throwable throwable) {
+    @VisibleForTesting
+    void handleError(@NonNull Throwable throwable) {
         mMovies.clear();
         notifyPropertyChanged(BR.movies);
     }

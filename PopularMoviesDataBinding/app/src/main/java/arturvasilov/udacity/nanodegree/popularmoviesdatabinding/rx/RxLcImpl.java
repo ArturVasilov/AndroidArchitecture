@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import rx.Observable;
 import rx.Observer;
@@ -47,5 +48,15 @@ class RxLcImpl<T> implements LoaderManager.LoaderCallbacks<RxResult<T>> {
     @Override
     public void onLoaderReset(Loader<RxResult<T>> loader) {
         // Do nothing
+    }
+
+    /**
+     * Only for test purposes
+     *
+     * DON'T USE IT!
+     */
+    @VisibleForTesting
+    void subscribeForTesting() {
+        mObservable.subscribe(mObserver);
     }
 }

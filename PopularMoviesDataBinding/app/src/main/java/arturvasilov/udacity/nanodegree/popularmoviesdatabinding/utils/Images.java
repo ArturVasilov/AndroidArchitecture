@@ -1,6 +1,5 @@
 package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.utils;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -8,7 +7,7 @@ import com.squareup.picasso.Picasso;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.AppDelegate;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.BuildConfig;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 
 /**
  * @author Artur Vasilov

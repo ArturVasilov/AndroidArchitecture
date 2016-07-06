@@ -35,14 +35,13 @@
                 android:textSize="@dimen/middle_text"/>
 
             <arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.EmptyRecyclerView
-                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="@{model.layoutManager}"
                 app:empty="@{empty}"
                 app:adapter="@{model.adapter}"
                 app:onItemClick="@{model::onItemClick}"
-                app:movies="@{model.movies}"/>
+                app:items="@{model.movies}"/>
 
             <arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.RefreshingDialogView
                 android:layout_width="0dp"

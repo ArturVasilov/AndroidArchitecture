@@ -1,7 +1,16 @@
 package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api;
 
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.MoviesResponse;
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Review;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Video;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.MoviesResponse;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.ReviewsResponse;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.VideosResponse;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -14,5 +23,11 @@ public interface MovieService {
 
     @GET("top_rated/")
     Observable<MoviesResponse> topRatedMovies();
+
+    @GET("{id}/reviews")
+    Observable<ReviewsResponse> reviews(@Path("id") @NonNull String id);
+
+    @GET("{id}/videos")
+    Observable<VideosResponse> video(@Path("id") @NonNull String id);
 
 }

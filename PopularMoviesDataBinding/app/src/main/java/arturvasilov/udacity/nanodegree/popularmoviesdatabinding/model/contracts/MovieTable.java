@@ -29,13 +29,14 @@ public class MovieTable extends Table {
     @Override
     public void onCreateTable(@NonNull SQLiteDatabase database) {
         String create = "CREATE TABLE IF NOT EXISTS " + getTableName() + " (" +
-                Columns._ID + " INTEGER PRIMARY KEY, " +
+                Columns._ID + " INTEGER, " +
                 Columns.POSTER_PATH + " VARCHAR(50), " +
                 Columns.OVERVIEW + " TEXT, " +
                 Columns.TITLE + " VARCHAR(50), " +
                 Columns.RELEASED_DATE + " VARCHAR(20), " +
                 Columns.VOTE_AVERAGE + " VARCHAR(6), " +
-                Columns.TYPE + " VARCHAR(20)" + ");";
+                Columns.TYPE + " VARCHAR(20), " +
+                "PRIMARY KEY (" + Columns._ID + ", " + Columns.TYPE + "));";
         database.execSQL(create);
     }
 

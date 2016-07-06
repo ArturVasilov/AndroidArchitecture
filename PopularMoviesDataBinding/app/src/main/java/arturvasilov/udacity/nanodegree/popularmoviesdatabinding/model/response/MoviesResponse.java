@@ -1,4 +1,4 @@
-package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model;
+package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response;
 
 import android.support.annotation.NonNull;
 
@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 
 /**
  * @author Artur Vasilov

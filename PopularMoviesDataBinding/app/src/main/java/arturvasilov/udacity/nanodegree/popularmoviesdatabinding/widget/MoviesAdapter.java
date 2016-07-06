@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.R;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.Movie;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.utils.Images;
 
 /**
