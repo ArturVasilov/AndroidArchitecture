@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="ru.arturvasilov.stackexchangeclient"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".AppDelegate"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".activity.AuthActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="stackexchange.com"
+                    android:pathPrefix="/oauth/login_success"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.WalkthroughActivity"
+            android:theme="@style/AppTheme.Fullscreen"/>
+
+        <activity android:name=".activity.MainActivity"/>
+
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:label=""/>
+
+        <activity android:name=".activity.AnswersListActivity"/>
+
+        <activity android:name=".activity.QuestionActivity"/>
+
+        <activity
+            android:name=".activity.TagsActivity"
+            android:theme="@style/AppTheme.LightGrey"
+            android:windowSoftInputMode="adjustResize|stateVisible"/>
+
+        <service
+            android:name=".service.StackDroidFCMService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.StackDroidFCMInstanceIdService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name=".data.database.SQLiteProvider"
+            android:authorities="ru.arturvasilov.stackexchangeclient"
+            android:exported="false"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3e5b15c1d3401d21a14a9501572e17feeccc86bf"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="centered_content_padding">88dp</dimen>
+    <dimen name="auth_button_margin">64dp</dimen>
+    <dimen name="walkthrough_content_padding_bottom">120dp</dimen>
+    <dimen name="walkthrough_indicator_margin_bottom">80dp</dimen>
+    <dimen name="walkthrough_text_margin">32dp</dimen>
+
+    <dimen name="list_item_padding">64dp</dimen>
+
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".activity.WalkthroughActivity">
+
+    <FrameLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ru.arturvasilov.stackexchangeclient.widget.CustomViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/pager_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/walkthrough_indicator_margin_bottom"/>
+
+        <TextView
+            android:id="@+id/walkthroughActionButton"
+            style="@style/SelectableItemBackgroundLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingRight="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_small"
+            android:text="@string/next_uppercase"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text.18"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:visibility="gone">
+
+        <ru.arturvasilov.stackexchangeclient.widget.SplashLoadingAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/loading"
+            android:src="@drawable/splash_icon"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/retryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/retryButton"
+            style="@style/SelectableItemBackgroundLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:contentDescription="@string/refresh"
+            android:padding="@dimen/padding_medium"
+            android:src="@drawable/ic_refresh_white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.15"
+            android:text="@string/error.later"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text.18"/>
+
+    </FrameLayout>
+
+</merge>

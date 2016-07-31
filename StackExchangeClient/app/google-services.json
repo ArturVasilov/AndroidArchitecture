@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1011346564517",
+    "firebase_url": "https://stackdroid-e6665.firebaseio.com",
+    "project_id": "stackdroid-e6665",
+    "storage_bucket": "stackdroid-e6665.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011346564517:android:7b46eca23e0908ad",
+        "android_client_info": {
+          "package_name": "ru.arturvasilov.stackexchangeclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011346564517-0idss4h300clhh0s50m7vvs2rk62kmhv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.arturvasilov.stackexchangeclient",
+            "certificate_hash": "3D3352F31B9C948934DEA796EBB20FD3D3658977"
+          }
+        },
+        {
+          "client_id": "1011346564517-fpctm8p8tce6u0mjgt814d2b16a84rnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_8qDsGvtoQit1k8E7sbv8PFLfbY2DvLs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011346564517-fpctm8p8tce6u0mjgt814d2b16a84rnt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

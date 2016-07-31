@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    defaultConfig {
+        applicationId "ru.arturvasilov.stackexchangeclient"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+
+        buildConfigField "String", "CLIENT_ID", rootProject.ext.clientId
+        buildConfigField "String", "KEY_SECRET", rootProject.ext.keySecret
+        buildConfigField "String", "API_ENDPOINT", '"https://api.stackexchange.com/2.2/"'
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+        release {
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
+            storeFile file(rootProject.ext.storeFile)
+            storePassword rootProject.ext.storePassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    flavorDimensions 'buildType'
+
+    productFlavors {
+        dev {
+            dimension 'buildType'
+            signingConfig signingConfigs.debug
+        }
+
+        prod {
+            signingConfig signingConfigs.release
+            dimension 'buildType'
+        }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    testOptions {
+        unitTests.all { jvmArgs '-noverify' }
+    }
+}
+
+dependencies {
+    compile project(':sqlite')
+
+    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:support-v13:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:gridlayout-v7:24.1.1'
+
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    compile 'com.google.code.gson:gson:2.7'
+
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.7'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
+
+    compile 'com.github.orhanobut:hawk:1.23'
+
+    compile 'me.relex:circleindicator:1.2.1@aar'
+
+    compile 'com.google.firebase:firebase-core:9.2.1'
+    compile 'com.google.firebase:firebase-messaging:9.2.1'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
+        transitive = true;
+    }
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.87-beta'
+
+    androidTestCompile 'com.android.support:support-annotations:24.1.1'
+    androidTestCompile 'com.android.support:support-v4:24.1.1'
+    androidTestCompile 'com.android.support:recyclerview-v7:24.1.1'
+
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+}
+
+apply from: 'jacoco.gradle'
+apply plugin: 'com.google.gms.google-services'

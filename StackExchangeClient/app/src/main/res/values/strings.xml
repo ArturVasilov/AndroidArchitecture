@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">StackDroid</string>
+
+    <string name="error.network">Check your network connection</string>
+    <string name="error.unexpected">Оoops! Try again later.</string>
+    <string name="error.later">Failed to get required information :(\nPlease, try later</string>
+    <string name="button.ok">@android:string/ok</string>
+    <string name="loading">Loading…</string>
+
+    <string name="sign_in_uppercase">SIGN IN</string>
+
+    <string name="next_uppercase">NEXT</string>
+    <string name="finish_uppercase">FINISH</string>
+    <string name="page_1_text">Stack Exchange is a network of 157 communities that are created and
+        run by experts and enthusiasts like you who are passionate about a specific topic
+    </string>
+    <string name="page_2_text">Stack Overflow is a question and answer site for professional and enthusiast programmers</string>
+    <string name="page_3_text">Whether you want to sit back and let us show you recommendations or search yourself,
+        we make it easy to find your dream job</string>
+    <string name="refresh">Refresh</string>
+    <string name="profile">Profile</string>
+    <string name="my_answers">My answers</string>
+    <string name="tags">Tags</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="my">My</string>
+    <string name="cd_answered_question">Question is answered</string>
+    <string name="empty_questions">No questions available</string>
+    <string name="cd_favourite_tag">Favourite tag</string>
+    <string name="no_tags_found">No tags found</string>
+    <string name="reputation">Reputation: %1$d</string>
+    <string name="profile_text">Profile</string>
+    <string name="badges">Badges</string>
+    <string name="top_tags">Top tags</string>
+    <string name="questions_count">Questions: %1$d</string>
+    <string name="answers_count">Answers: %1$d</string>
+    <string name="answers">Answers</string>
+    <string name="no_answers">No answers found</string>
+</resources>

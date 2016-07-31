@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_light"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/centered_content_padding"
+    android:paddingRight="@dimen/centered_content_padding"
+    tools:context=".activity.AuthActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/auth_button_margin"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/so_logo"/>
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_56"
+        android:background="@drawable/btn_white"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/sign_in_uppercase"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text.16"/>
+
+</LinearLayout>

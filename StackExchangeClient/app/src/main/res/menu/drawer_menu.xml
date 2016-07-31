@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/profile"
+            android:checked="false"
+            android:icon="@drawable/ic_person"
+            android:title="@string/profile"/>
+
+        <item
+            android:id="@+id/my_answers"
+            android:checked="false"
+            android:icon="@drawable/ic_answers"
+            android:title="@string/my_answers"/>
+
+        <item
+            android:id="@+id/tags"
+            android:checked="false"
+            android:icon="@drawable/ic_tags"
+            android:title="@string/tags"/>
+
+        <item
+            android:id="@+id/exit"
+            android:checked="false"
+            android:icon="@drawable/ic_exit"
+            android:title="@string/exit"/>
+
+    </group>
+</menu>

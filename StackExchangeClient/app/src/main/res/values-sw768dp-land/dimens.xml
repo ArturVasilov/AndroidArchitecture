@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="centered_content_padding">180dp</dimen>
+    <dimen name="auth_button_margin">96dp</dimen>
+    <dimen name="list_item_padding">128dp</dimen>
+</resources>

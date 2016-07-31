@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:paddingBottom="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_small">
+
+    <TextView
+        android:id="@+id/tagName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text.16"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        tools:ignore="RtlSymmetry">
+
+        <TextView
+            android:id="@+id/questionsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text.14"/>
+
+        <TextView
+            android:id="@+id/answersCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text.14"/>
+
+    </LinearLayout>
+</FrameLayout>
