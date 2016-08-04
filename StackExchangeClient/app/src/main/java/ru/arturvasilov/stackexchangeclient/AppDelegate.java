@@ -7,11 +7,11 @@ import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.fabric.sdk.android.Fabric;
+import ru.arturvasilov.sqlite.core.SQLite;
 import ru.arturvasilov.stackexchangeclient.api.RepositoryProvider;
 import ru.arturvasilov.stackexchangeclient.app.analytics.Analytics;
 import ru.arturvasilov.stackexchangeclient.app.analytics.EventTags;
 import ru.arturvasilov.stackexchangeclient.data.keyvalue.HawkStorage;
-import ru.arturvasilov.stackexchangeclient.sqlite.SQLite;
 import ru.arturvasilov.stackexchangeclient.utils.PicassoUtils;
 import ru.arturvasilov.stackexchangeclient.utils.TextUtils;
 

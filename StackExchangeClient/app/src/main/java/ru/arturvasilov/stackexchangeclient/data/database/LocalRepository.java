@@ -1,10 +1,12 @@
 package ru.arturvasilov.stackexchangeclient.data.database;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import ru.arturvasilov.sqlite.core.SQLite;
+import ru.arturvasilov.sqlite.core.Where;
+import ru.arturvasilov.sqlite.rx.RxSQLite;
 import ru.arturvasilov.stackexchangeclient.api.RepositoryProvider;
 import ru.arturvasilov.stackexchangeclient.app.analytics.Analytics;
 import ru.arturvasilov.stackexchangeclient.app.analytics.EventKeys;
@@ -14,7 +16,6 @@ import ru.arturvasilov.stackexchangeclient.model.content.Tag;
 import ru.arturvasilov.stackexchangeclient.model.content.User;
 import ru.arturvasilov.stackexchangeclient.rx.RxSchedulers;
 import ru.arturvasilov.stackexchangeclient.rx.StubAction;
-import ru.arturvasilov.stackexchangeclient.sqlite.SQLite;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -23,56 +24,43 @@ import rx.schedulers.Schedulers;
  */
 public class LocalRepository {
 
-    private final SQLite mDb;
-
-    public LocalRepository(@NonNull Context context) {
-        mDb = SQLite.initialize(context);
-    }
-
     @NonNull
     public Observable<User> getCurrentUser() {
         return RepositoryProvider.provideKeyValueStorage().getCurrentUserId()
                 .take(1)
                 .filter(id -> id > 0)
                 .map(String::valueOf)
-                .flatMap(id -> mDb.query(UserTable.TABLE)
-                        .object()
+                .flatMap(id -> RxSQLite.get().queryObject(UserTable.TABLE, Where.create()
                         .where(UserTable.USER_ID + "=?")
-                        .whereArgs(new String[]{id})
-                        .asObservable())
+                        .whereArgs(new String[]{id})))
                 .compose(RxSchedulers.async());
     }
 
     @NonNull
     public Observable<List<Question>> questions(@NonNull String tag) {
-        return mDb.query(QuestionTable.TABLE)
-                .all()
+        return RxSQLite.get().query(QuestionTable.TABLE, Where.create()
                 .where(QuestionTable.TAG + "=?")
-                .whereArgs(new String[]{tag})
-                .asObservable()
+                .whereArgs(new String[]{tag}))
                 .compose(RxSchedulers.async());
     }
 
     @NonNull
     public Observable<List<String>> tags() {
-        return mDb.query(TagTable.TABLE)
-                .all()
-                .asObservable()
+        return RxSQLite.get().query(TagTable.TABLE, Where.create())
                 .compose(RxSchedulers.async());
     }
 
     public boolean updateTag(@NonNull Tag tag) {
         if (tag.isFavourite()) {
-            SQLite.get().delete(TagTable.TABLE)
+            SQLite.get().delete(TagTable.TABLE, Where.create()
                     .where(TagTable.TAG + "=?")
-                    .whereArgs(new String[]{tag.getName()})
-                    .execute();
+                    .whereArgs(new String[]{tag.getName()}));
             Analytics.buildEvent()
                     .putString(EventKeys.TAG, tag.getName())
                     .log(EventTags.TAGS_REMOVE_FAVOURITE);
             return false;
         } else {
-            SQLite.get().insert(TagTable.TABLE).insert(tag.getName());
+            SQLite.get().insert(TagTable.TABLE, tag.getName());
             Analytics.buildEvent()
                     .putString(EventKeys.TAG, tag.getName())
                     .log(EventTags.TAGS_ADD_FAVOURITE);
@@ -83,10 +71,10 @@ public class LocalRepository {
     public void logout() {
         Observable.just(true)
                 .flatMap(value -> {
-                    SQLite.get().delete(UserTable.TABLE).execute();
-                    SQLite.get().delete(QuestionTable.TABLE).execute();
-                    SQLite.get().delete(TagTable.TABLE).execute();
-                    SQLite.get().delete(AnswerTable.TABLE).execute();
+                    SQLite.get().delete(UserTable.TABLE, Where.create());
+                    SQLite.get().delete(QuestionTable.TABLE, Where.create());
+                    SQLite.get().delete(TagTable.TABLE, Where.create());
+                    SQLite.get().delete(AnswerTable.TABLE, Where.create());
                     return Observable.just(value);
                 })
                 .subscribeOn(Schedulers.io())

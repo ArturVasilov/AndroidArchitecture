@@ -3,6 +3,7 @@ package ru.arturvasilov.stackexchangeclient.adapter.viewholder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class AnswerViewHolder extends RecyclerView.ViewHolder {
         mAnswerBody = Views.findById(itemView, R.id.answerBody);
         mAnsweredIcon = Views.findById(itemView, R.id.answeredView);
         mDivider = Views.findById(itemView, R.id.divider);
+
+        mAnswerBody.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public void bind(@NonNull Answer answer, boolean isLast, int maxBodyLength) {

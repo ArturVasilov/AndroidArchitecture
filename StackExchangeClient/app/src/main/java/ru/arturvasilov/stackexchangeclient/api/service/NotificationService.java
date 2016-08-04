@@ -12,7 +12,7 @@ import rx.Observable;
 public interface NotificationService {
 
     @NonNull
-    @GET("/me/notifications?pagesize=100&filter=!9X8frFZkZ")
+    @GET("/me/notifications?pagesize=50&filter=!9X8frFZkZ")
     Observable<NotificationResponse> notifications();
 
 }

@@ -19,4 +19,8 @@
     <dimen name="profile_app_bar_height">376dp</dimen>
     <dimen name="profile_app_bar_width">280dp</dimen>
     <dimen name="profile_padding">16dp</dimen>
+
+    <dimen name="width_min_height">110dp</dimen>
+    <dimen name="width_min_width">180dp</dimen>
+    <dimen name="notification_item_height">72dp</dimen>
 </resources>

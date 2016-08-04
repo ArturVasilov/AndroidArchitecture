@@ -81,8 +81,6 @@ android {
 }
 
 dependencies {
-    compile project(':sqlite')
-
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:support-v13:24.1.1'
     compile 'com.android.support:appcompat-v7:24.1.1'
@@ -101,6 +99,8 @@ dependencies {
 
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.7'
+
+    compile 'ru.arturvasilov:sqlite:0.1.0'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'

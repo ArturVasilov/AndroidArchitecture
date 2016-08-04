@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/notificationItemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/notification_item_height"
+    android:background="@drawable/notification_read"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding_xsmall"
+    android:paddingLeft="@dimen/padding_small"
+    android:paddingRight="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_xsmall">
+
+    <TextView
+        android:id="@+id/notificationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="start"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/text.15"/>
+
+    <TextView
+        android:id="@+id/notificationBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_xsmall"
+        android:layout_marginStart="@dimen/margin_xsmall"
+        android:fontFamily="sans-serif"
+        android:maxLength="@integer/notification_body_max_length"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text.14"/>
+
+</LinearLayout>

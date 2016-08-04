@@ -1,1 +1,1 @@
-include ':app', ':sqlite'
+include ':app'

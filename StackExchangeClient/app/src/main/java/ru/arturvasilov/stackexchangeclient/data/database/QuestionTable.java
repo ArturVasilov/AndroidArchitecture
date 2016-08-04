@@ -5,12 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import ru.arturvasilov.sqlite.core.BaseTable;
+import ru.arturvasilov.sqlite.core.Table;
+import ru.arturvasilov.sqlite.utils.TableBuilder;
 import ru.arturvasilov.stackexchangeclient.app.GsonHolder;
 import ru.arturvasilov.stackexchangeclient.model.content.Question;
 import ru.arturvasilov.stackexchangeclient.model.content.User;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.BaseTable;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.Table;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.TableBuilder;
 
 /**
  * @author Artur Vasilov
@@ -43,11 +43,6 @@ public class QuestionTable extends BaseTable<Question> {
                 .stringColumn(TAG)
                 .primaryKey(QUESTION_ID, TAG)
                 .execute(database);
-    }
-
-    @Override
-    public int getLastUpgradeVersion() {
-        return 1;
     }
 
     @NonNull

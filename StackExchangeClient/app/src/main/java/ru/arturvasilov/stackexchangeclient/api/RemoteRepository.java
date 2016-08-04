@@ -5,6 +5,8 @@ import android.text.format.DateUtils;
 
 import java.util.List;
 
+import ru.arturvasilov.sqlite.core.SQLite;
+import ru.arturvasilov.sqlite.core.Where;
 import ru.arturvasilov.stackexchangeclient.api.service.AnswerService;
 import ru.arturvasilov.stackexchangeclient.api.service.ApplicationService;
 import ru.arturvasilov.stackexchangeclient.api.service.NotificationService;
@@ -13,6 +15,7 @@ import ru.arturvasilov.stackexchangeclient.api.service.TagsService;
 import ru.arturvasilov.stackexchangeclient.api.service.UserInfoService;
 import ru.arturvasilov.stackexchangeclient.app.analytics.Analytics;
 import ru.arturvasilov.stackexchangeclient.data.database.AnswerTable;
+import ru.arturvasilov.stackexchangeclient.data.database.NotificationTable;
 import ru.arturvasilov.stackexchangeclient.data.database.QuestionTable;
 import ru.arturvasilov.stackexchangeclient.data.database.UserTable;
 import ru.arturvasilov.stackexchangeclient.model.content.Answer;
@@ -31,7 +34,6 @@ import ru.arturvasilov.stackexchangeclient.model.response.TagResponse;
 import ru.arturvasilov.stackexchangeclient.model.response.UserResponse;
 import ru.arturvasilov.stackexchangeclient.model.response.UserTagResponse;
 import ru.arturvasilov.stackexchangeclient.rx.RxSchedulers;
-import ru.arturvasilov.stackexchangeclient.sqlite.SQLite;
 import ru.arturvasilov.stackexchangeclient.utils.TextUtils;
 import rx.Observable;
 
@@ -65,7 +67,7 @@ public class RemoteRepository {
                 .map(UserResponse::getUsers)
                 .map(users -> users.get(0))
                 .flatMap(user -> {
-                    SQLite.get().insert(UserTable.TABLE).insert(user);
+                    SQLite.get().insert(UserTable.TABLE, user);
                     RepositoryProvider.provideKeyValueStorage().saveUserId(user.getUserId());
                     Analytics.setCurrentUser(user);
                     return Observable.just(user);
@@ -86,11 +88,10 @@ public class RemoteRepository {
                 })
                 .toList()
                 .flatMap(questions -> {
-                    SQLite.get().delete(QuestionTable.TABLE)
+                    SQLite.get().delete(QuestionTable.TABLE, Where.create()
                             .where(QuestionTable.TAG + "=?")
-                            .whereArgs(new String[]{tag})
-                            .execute();
-                    SQLite.get().insert(QuestionTable.TABLE).insert(questions);
+                            .whereArgs(new String[]{tag}));
+                    SQLite.get().insert(QuestionTable.TABLE, questions);
                     return Observable.just(questions);
                 })
                 .compose(RxSchedulers.async());
@@ -134,12 +135,12 @@ public class RemoteRepository {
                 .compose(ErrorsHandler.handleErrors())
                 .map(AnswerResponse::getAnswers)
                 .flatMap(answers -> {
-                    SQLite.get().delete(AnswerTable.TABLE).execute();
-                    SQLite.get().insert(AnswerTable.TABLE).insert(answers);
+                    SQLite.get().delete(AnswerTable.TABLE, Where.create());
+                    SQLite.get().insert(AnswerTable.TABLE, answers);
                     return Observable.just(answers);
                 })
                 .onErrorResumeNext(throwable -> {
-                    List<Answer> answers = SQLite.get().query(AnswerTable.TABLE).all().execute();
+                    List<Answer> answers = SQLite.get().query(AnswerTable.TABLE, Where.create());
                     if (answers.isEmpty()) {
                         return Observable.error(throwable);
                     }
@@ -170,7 +171,14 @@ public class RemoteRepository {
         return mNotificationService.notifications()
                 .compose(ErrorsHandler.handleErrors())
                 .map(NotificationResponse::getNotifications)
-                .compose(RxSchedulers.async());
+                .flatMap(Observable::from)
+                .filter(notification -> !TextUtils.isEmpty(notification.getBody()))
+                .toList()
+                .flatMap(notifications -> {
+                    SQLite.get().delete(NotificationTable.TABLE, Where.create());
+                    SQLite.get().insert(NotificationTable.TABLE, notifications);
+                    return Observable.just(notifications);
+                });
     }
 
     @NonNull

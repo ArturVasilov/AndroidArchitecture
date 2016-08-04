@@ -2,4 +2,5 @@
 <resources>
     <integer name="badges_columns">2</integer>
     <integer name="body_preview_length">200</integer>
+    <integer name="notification_body_max_length">90</integer>
 </resources>

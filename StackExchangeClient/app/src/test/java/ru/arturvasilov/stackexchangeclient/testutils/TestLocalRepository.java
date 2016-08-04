@@ -16,10 +16,6 @@ import rx.Observable;
  */
 public class TestLocalRepository extends LocalRepository {
 
-    public TestLocalRepository() {
-        super(MockUtils.mockContext());
-    }
-
     @NonNull
     @Override
     public Observable<User> getCurrentUser() {

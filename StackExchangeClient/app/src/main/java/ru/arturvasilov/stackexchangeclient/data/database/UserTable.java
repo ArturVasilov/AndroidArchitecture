@@ -5,10 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import ru.arturvasilov.sqlite.core.BaseTable;
+import ru.arturvasilov.sqlite.core.Table;
+import ru.arturvasilov.sqlite.utils.TableBuilder;
 import ru.arturvasilov.stackexchangeclient.model.content.User;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.BaseTable;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.Table;
-import ru.arturvasilov.stackexchangeclient.sqlite.table.TableBuilder;
 
 /**
  * @author Artur Vasilov
@@ -35,11 +35,6 @@ public class UserTable extends BaseTable<User> {
                 .stringColumn(LINK)
                 .stringColumn(PROFILE_IMAGE)
                 .execute(database);
-    }
-
-    @Override
-    public int getLastUpgradeVersion() {
-        return 1;
     }
 
     @NonNull
