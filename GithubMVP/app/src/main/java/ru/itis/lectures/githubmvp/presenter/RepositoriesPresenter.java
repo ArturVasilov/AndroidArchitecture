@@ -4,11 +4,9 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import ru.arturvasilov.sqlite.SQLite;
 import ru.itis.lectures.githubmvp.R;
 import ru.itis.lectures.githubmvp.api.ApiFactory;
 import ru.itis.lectures.githubmvp.content.Repository;
-import ru.itis.lectures.githubmvp.database.tables.RepositoryTable;
 import ru.itis.lectures.githubmvp.repository.RepositoriesRepository;
 import ru.itis.lectures.githubmvp.rx.RxLoader;
 import ru.itis.lectures.githubmvp.view.RepositoriesView;

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import ru.arturvasilov.sqlite.SQLite;
+import ru.arturvasilov.sqlite.core.SQLite;
 import ru.itis.lectures.githubmvp.api.ApiFactory;
 import ru.itis.lectures.githubmvp.api.ApiProvider;
 import ru.itis.lectures.githubmvp.api.DefaultApiProvider;
