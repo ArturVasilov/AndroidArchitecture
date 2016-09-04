@@ -4,7 +4,7 @@ apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -81,12 +81,12 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:24.1.1'
-    compile 'com.android.support:support-v13:24.1.1'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.android.support:gridlayout-v7:24.1.1'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:support-v13:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'com.android.support:gridlayout-v7:24.2.0'
 
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -119,9 +119,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.87-beta'
 
-    androidTestCompile 'com.android.support:support-annotations:24.1.1'
-    androidTestCompile 'com.android.support:support-v4:24.1.1'
-    androidTestCompile 'com.android.support:recyclerview-v7:24.1.1'
+    androidTestCompile 'com.android.support:support-annotations:24.2.0'
+    androidTestCompile 'com.android.support:support-v4:24.2.0'
+    androidTestCompile 'com.android.support:recyclerview-v7:24.2.0'
 
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
