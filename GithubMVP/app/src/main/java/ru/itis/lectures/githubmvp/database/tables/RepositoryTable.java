@@ -2,8 +2,9 @@ package ru.itis.lectures.githubmvp.database.tables;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+
+import org.sqlite.database.sqlite.SQLiteDatabase;
 
 import ru.arturvasilov.sqlite.core.BaseTable;
 import ru.arturvasilov.sqlite.core.Table;
@@ -30,9 +31,9 @@ public final class RepositoryTable extends BaseTable<Repository> {
     @Override
     public void onCreate(@NonNull SQLiteDatabase database) {
         TableBuilder.create(this)
-                .stringColumn(NAME_COLUMN)
-                .stringColumn(DESCRIPTION_COLUMN)
-                .stringColumn(LANGUAGE_COLUMN)
+                .textColumn(NAME_COLUMN)
+                .textColumn(DESCRIPTION_COLUMN)
+                .textColumn(LANGUAGE_COLUMN)
                 .intColumn(STARS_COLUMN)
                 .intColumn(FORKS_COLUMN)
                 .intColumn(WATCHERS_COLUMN)

@@ -2,8 +2,9 @@ package ru.itis.lectures.githubmvp.database.tables;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+
+import org.sqlite.database.sqlite.SQLiteDatabase;
 
 import ru.arturvasilov.sqlite.core.BaseTable;
 import ru.arturvasilov.sqlite.core.Table;
@@ -27,9 +28,9 @@ public final class CommitsTable extends BaseTable<Commit> {
     @Override
     public void onCreate(@NonNull SQLiteDatabase database) {
         TableBuilder.create(this)
-                .stringColumn(REPOSITORY_NAME)
-                .stringColumn(AUTHOR)
-                .stringColumn(MESSAGE)
+                .textColumn(REPOSITORY_NAME)
+                .textColumn(AUTHOR)
+                .textColumn(MESSAGE)
                 .primaryKey(REPOSITORY_NAME)
                 .execute(database);
     }
