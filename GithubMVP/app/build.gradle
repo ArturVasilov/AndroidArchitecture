@@ -36,42 +36,42 @@ android {
 apply from: '../versions.gradle'
 
 dependencies {
-    compile "com.android.support:support-v4:${supportVersion}"
-    compile "com.android.support:support-v13:${supportVersion}"
-    compile "com.android.support:appcompat-v7:${supportVersion}"
-    compile "com.android.support:recyclerview-v7:${supportVersion}"
-    compile "com.android.support:design:${supportVersion}"
+    compile "com.android.support:support-v4:$supportVersion"
+    compile "com.android.support:support-v13:$supportVersion"
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
 
-    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-    compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
-    compile "io.reactivex:rxjava:${rxjavaVersion}"
-    compile "io.reactivex:rxandroid:${rxandroidVersion}"
+    compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile "io.reactivex:rxjava:$rxjavaVersion"
+    compile "io.reactivex:rxandroid:$rxandroidVersion"
 
-    compile "ru.arturvasilov:sqlite:${sqliteVersion}"
+    compile "ru.arturvasilov:sqlite:$sqliteVersion"
 
-    compile("com.github.afollestad.material-dialogs:core:${materialDialogsVersion}") {
+    compile("com.afollestad.material-dialogs:core:$materialDialogsVersion") {
         transitive = true
     }
 
-    testCompile "junit:junit:${junitVersion}"
-    testCompile("org.robolectric:robolectric:${robolectricVersion}") {
+    testCompile "junit:junit:$junitVersion"
+    testCompile("org.robolectric:robolectric:$robolectricVersion") {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
-    testCompile "org.powermock:powermock-api-mockito:${powerMockVersion}"
-    testCompile "org.powermock:powermock-module-junit4:${powerMockVersion}"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.powermock:powermock-api-mockito:$powerMockVersion"
+    testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
 
     // UI/Instrumentation testing
-    androidTestCompile "com.android.support:support-v4:${supportVersion}"
-    androidTestCompile "com.android.support:recyclerview-v7:${supportVersion}"
-    androidTestCompile "com.android.support.test.espresso:espresso-core:${espressoVersion}"
-    androidTestCompile "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
-    androidTestCompile "com.android.support.test.espresso:espresso-contrib:${espressoVersion}"
-    androidTestCompile "com.android.support.test:runner:${testRunnerVersion}"
-    androidTestCompile "com.android.support.test:rules:${testRunnerVersion}"
+    androidTestCompile "com.android.support:support-v4:$supportVersion"
+    androidTestCompile "com.android.support:recyclerview-v7:$supportVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestCompile "com.android.support.test:runner:$testRunnerVersion"
+    androidTestCompile "com.android.support.test:rules:$testRunnerVersion"
 }
 

@@ -11,9 +11,9 @@ import ru.itis.lectures.githubmvp.R;
  */
 public enum Benefit {
 
-    WORK_TOGETHER(R.string.benefit_work_together, R.mipmap.cat1),
-    CODE_HISTORY(R.string.benefit_code_history, R.mipmap.cat2),
-    PUBLISH_SOURCE(R.string.benefit_publish_source, R.mipmap.cat3),;
+    WORK_TOGETHER(R.string.benefit_work_together, R.drawable.cat1),
+    CODE_HISTORY(R.string.benefit_code_history, R.drawable.cat2),
+    PUBLISH_SOURCE(R.string.benefit_publish_source, R.drawable.cat3),;
 
     private final int mTextId;
     private final int mDrawableId;
