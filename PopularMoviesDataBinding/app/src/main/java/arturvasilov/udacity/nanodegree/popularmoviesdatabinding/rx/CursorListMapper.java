@@ -1,4 +1,4 @@
-package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils;
+package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx;
 
 import android.database.Cursor;
 import android.support.annotation.NonNull;

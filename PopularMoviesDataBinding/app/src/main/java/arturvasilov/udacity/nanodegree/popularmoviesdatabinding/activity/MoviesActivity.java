@@ -12,6 +12,8 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.Acti
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.viewmodel.MoviesViewModel;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.MoviesRouter;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.impl.MoviesRouterImpl;
+import ru.arturvasilov.rxloader.LifecycleHandler;
+import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 
 public class MoviesActivity extends AppCompatActivity {
 
@@ -25,7 +27,8 @@ public class MoviesActivity extends AppCompatActivity {
 
         mRouter = new MoviesRouterImpl(this);
         ActivityMoviesBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_movies);
-        mViewModel = new MoviesViewModel(this, getLoaderManager(), mRouter);
+        LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
+        mViewModel = new MoviesViewModel(this, lifecycleHandler, mRouter);
         binding.setModel(mViewModel);
         //loader handles activity restart and returns values to fast, so we need our binding (adapter) to be ready for it
         binding.executePendingBindings();

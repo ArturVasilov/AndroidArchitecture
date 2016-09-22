@@ -2,10 +2,6 @@ package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Review;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Video;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.MoviesResponse;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.ReviewsResponse;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.VideosResponse;

@@ -1,6 +1,5 @@
 package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.viewmodel;
 
-import android.app.LoaderManager;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -23,12 +22,12 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.api.RepositoryPr
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Review;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Video;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.RxLoader;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.AsyncOperator;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.utils.Images;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.utils.Videos;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.ReviewsAdapter;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.TrailersAdapter;
+import ru.arturvasilov.rxloader.LifecycleHandler;
+import ru.arturvasilov.rxloader.RxUtils;
 import rx.Observable;
 
 /**
@@ -39,7 +38,7 @@ public class MovieDetailsViewModel extends BaseObservable {
     private static final String MAXIMUM_RATING = "10";
 
     private final Context mContext;
-    private final LoaderManager mLm;
+    private final LifecycleHandler mLifecycleHandler;
 
     private final Movie mMovie;
 
@@ -48,10 +47,10 @@ public class MovieDetailsViewModel extends BaseObservable {
 
     private boolean mIsLoading = false;
 
-    public MovieDetailsViewModel(@NonNull Context context, @NonNull LoaderManager lm,
+    public MovieDetailsViewModel(@NonNull Context context, @NonNull LifecycleHandler lifecycleHandler,
                                  @NonNull Movie movie) {
         mContext = context;
-        mLm = lm;
+        mLifecycleHandler = lifecycleHandler;
         mMovie = movie;
 
         mReviews = new ArrayList<>();
@@ -61,15 +60,13 @@ public class MovieDetailsViewModel extends BaseObservable {
     public void init() {
         Observable<List<Review>> reviews = RepositoryProvider.getRepository()
                 .reviews(mMovie)
-                .cache()
                 .doOnNext(this::handleReviews);
 
         Observable<List<Video>> videos = RepositoryProvider.getRepository()
                 .videos(mMovie)
-                .cache()
                 .doOnNext(this::handleVideos);
 
-        Observable<Boolean> details = Observable.zip(reviews, videos, this::isNoError)
+        Observable.zip(reviews, videos, this::isNoError)
                 .flatMap(value -> {
                     if (value != null && value) {
                         return Observable.just(true);
@@ -78,10 +75,9 @@ public class MovieDetailsViewModel extends BaseObservable {
                 })
                 .doOnSubscribe(() -> setLoading(true))
                 .doOnTerminate(() -> setLoading(false))
-                .compose(new AsyncOperator<>());
-
-        RxLoader.create(mContext, mLm, R.id.movie_details_loader_id, details)
-                .restart(value -> {
+                .compose(RxUtils.async())
+                .compose(mLifecycleHandler.reload(R.id.movie_details_request))
+                .subscribe(value -> {
                 }, this::handleError);
     }
 
@@ -188,7 +184,8 @@ public class MovieDetailsViewModel extends BaseObservable {
         Observable<Boolean> observable;
         if (mMovie.isFavourite()) {
             observable = RepositoryProvider.getRepository().removeFromFavourite(mMovie);
-        } else {
+        }
+        else {
             observable = RepositoryProvider.getRepository().addToFavourite(mMovie);
         }
 

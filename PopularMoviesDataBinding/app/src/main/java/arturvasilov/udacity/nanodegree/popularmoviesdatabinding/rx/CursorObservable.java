@@ -1,4 +1,4 @@
-package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils;
+package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx;
 
 import android.database.Cursor;
 import android.support.annotation.NonNull;
@@ -13,8 +13,12 @@ public class CursorObservable extends Observable<Cursor> {
 
     private CursorObservable(@NonNull Cursor cursor) {
         super(subscriber -> {
-            subscriber.onNext(cursor);
-            subscriber.onCompleted();
+            if (subscriber != null && !subscriber.isUnsubscribed()) {
+                subscriber.onNext(cursor);
+            }
+            if (subscriber != null && !subscriber.isUnsubscribed()) {
+                subscriber.onCompleted();
+            }
             DatabaseUtils.safeCloseCursor(cursor);
         });
     }

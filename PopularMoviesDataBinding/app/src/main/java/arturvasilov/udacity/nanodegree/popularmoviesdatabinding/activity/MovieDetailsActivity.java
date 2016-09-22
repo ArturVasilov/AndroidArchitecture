@@ -20,6 +20,8 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.Acti
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.viewmodel.MovieDetailsViewModel;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.impl.HomeButtonRouter;
+import ru.arturvasilov.rxloader.LifecycleHandler;
+import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -45,7 +47,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         ActivityMovieDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details);
         Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        MovieDetailsViewModel model = new MovieDetailsViewModel(this, getLoaderManager(), movie);
+        LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
+        MovieDetailsViewModel model = new MovieDetailsViewModel(this, lifecycleHandler, movie);
         binding.setModel(model);
         binding.setMovie(movie);
         binding.executePendingBindings();

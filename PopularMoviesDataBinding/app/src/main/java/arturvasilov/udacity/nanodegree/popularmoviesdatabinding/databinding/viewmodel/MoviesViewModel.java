@@ -1,6 +1,5 @@
 package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.viewmodel;
 
-import android.app.LoaderManager;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -22,8 +21,8 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.app.Preferences;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.MoviesProvider;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.MoviesRouter;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.RxLoader;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.widget.MoviesAdapter;
+import ru.arturvasilov.rxloader.LifecycleHandler;
 import rx.Observable;
 
 /**
@@ -32,7 +31,7 @@ import rx.Observable;
 public class MoviesViewModel extends BaseObservable {
 
     private final Context mContext;
-    private final LoaderManager mLm;
+    private final LifecycleHandler mLifecycleHandler;
     private final MoviesRouter mRouter;
 
     private final List<Movie> mMovies;
@@ -41,10 +40,10 @@ public class MoviesViewModel extends BaseObservable {
 
     private MoviesProvider.Type mType;
 
-    public MoviesViewModel(@NonNull Context context, @NonNull LoaderManager lm,
+    public MoviesViewModel(@NonNull Context context, @NonNull LifecycleHandler handler,
                            @NonNull MoviesRouter router) {
         mContext = context;
-        mLm = lm;
+        mLifecycleHandler = handler;
         mRouter = router;
 
         mIsRefreshing = false;
@@ -87,8 +86,8 @@ public class MoviesViewModel extends BaseObservable {
         mContext.getResources().getValue(R.dimen.rows_count, typedValue, true);
         float rowsCount = typedValue.getFloat();
         int actionBarHeight = mContext.getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)
-                ? TypedValue.complexToDimensionPixelSize(typedValue.data, mContext.getResources().getDisplayMetrics())
-                : 0;
+                              ? TypedValue.complexToDimensionPixelSize(typedValue.data, mContext.getResources().getDisplayMetrics())
+                              : 0;
         int imageHeight = (int) ((mContext.getResources().getDisplayMetrics().heightPixels - actionBarHeight) / rowsCount);
 
         return new MoviesAdapter(new ArrayList<>(), imageWidth, imageHeight);
@@ -107,16 +106,16 @@ public class MoviesViewModel extends BaseObservable {
     }
 
     private void load(boolean restart) {
-        Observable<List<Movie>> movies = RepositoryProvider.getRepository().loadMovies(mType)
-                .doOnSubscribe(() -> setRefreshing(true))
-                .doAfterTerminate(() -> setRefreshing(false));
+        Observable.Transformer<List<Movie>, List<Movie>> lifecycleTransformer =
+                restart
+                ? mLifecycleHandler.reload(R.id.movies_loader_request)
+                : mLifecycleHandler.load(R.id.movies_loader_request);
 
-        RxLoader<List<Movie>> loader = RxLoader.create(mContext, mLm, R.id.movies_loader_id, movies);
-        if (restart) {
-            loader.restart(this::handleMovies, this::handleError);
-        } else {
-            loader.init(this::handleMovies, this::handleError);
-        }
+        RepositoryProvider.getRepository().loadMovies(mType)
+                .doOnSubscribe(() -> setRefreshing(true))
+                .doAfterTerminate(() -> setRefreshing(false))
+                .compose(lifecycleTransformer)
+                .subscribe(this::handleMovies, this::handleError);
     }
 
     private void setRefreshing(boolean refreshing) {

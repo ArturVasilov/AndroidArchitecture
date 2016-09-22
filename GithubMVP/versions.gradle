@@ -1,8 +1,8 @@
 ext {
-    supportVersion = '24.1.1'
+    supportVersion = '24.2.1'
     okhttpVersion = '3.4.1'
-    retrofitVersion = '2.0.0'
-    rxjavaVersion = '1.1.8'
+    retrofitVersion = '2.1.0'
+    rxjavaVersion = '1.1.10'
     rxandroidVersion = '1.2.1'
 
     sqliteVersion = '0.1.2'
@@ -14,6 +14,6 @@ ext {
     powerMockVersion = '1.6.2'
     robolectricVersion = '3.1.2'
     mockitoVersion = '2.0.31-beta'
-    espressoVersion = '2.2.1'
-    testRunnerVersion = '0.4.1'
+    espressoVersion = '2.2.'
+    testRunnerVersion = '0.5'
 }

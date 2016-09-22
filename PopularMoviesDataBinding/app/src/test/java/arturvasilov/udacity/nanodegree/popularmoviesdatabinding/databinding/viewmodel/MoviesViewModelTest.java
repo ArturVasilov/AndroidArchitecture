@@ -1,5 +1,6 @@
 package arturvasilov.udacity.nanodegree.popularmoviesdatabinding.databinding.viewmodel;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -22,9 +24,11 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.app.Preferences;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.content.Movie;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.MoviesProvider;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.router.MoviesRouter;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.RxUtils;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.testutils.MockLifecycleHandler;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.testutils.RxUtils;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.testutils.TestMoviesRepository;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.testutils.prefs.SharedPreferencesMapImpl;
+import ru.arturvasilov.rxloader.LifecycleHandler;
 import rx.Observable;
 
 import static junit.framework.Assert.assertEquals;
@@ -64,11 +68,7 @@ public class MoviesViewModelTest {
         RepositoryProvider.setRepository(mTestRepository);
 
         mRouter = mock(MoviesRouter.class);
-        doNothing().when(mRouter).navigateToMovieScreen(any(ImageView.class), any(Movie.class));
-        doNothing().when(mRouter).navigateToSettingsActivity();
-
-        mViewModel = spy(new MoviesViewModel(RxUtils.rxContext(), RxUtils.rxLoaderManager(), mRouter));
-        doNothing().when(mViewModel).notifyPropertyChanged(anyInt());
+        mViewModel = spy(new MoviesViewModel(Mockito.mock(Context.class), new MockLifecycleHandler(), mRouter));
     }
 
     @Test

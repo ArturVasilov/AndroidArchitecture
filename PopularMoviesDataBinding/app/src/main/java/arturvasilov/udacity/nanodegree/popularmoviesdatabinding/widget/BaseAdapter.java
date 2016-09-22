@@ -84,10 +84,10 @@ public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder, T> extends
         return mItems.size();
     }
 
+    @SuppressWarnings("NullableProblems")
     public interface OnItemClickListener<T> {
 
         void onItemClick(@NonNull View view, @NonNull T item);
-
     }
 
 }

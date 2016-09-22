@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -43,23 +42,23 @@ public class RefreshingDialogView extends View {
         mIsRefreshing = refreshing;
         if (mIsRefreshing) {
             mDialog.show(((Activity) getContext()).getFragmentManager());
-        } else {
+        }
+        else {
             mDialog.cancel();
         }
-    }
-
-    public void setText_Id(int id) {
-
     }
 
     private void init(@Nullable AttributeSet attrs) {
         mIsRefreshing = false;
 
-        String text = getResources().getString(R.string.loading_progress);
+        String text = null;
         if (attrs != null) {
             TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.RefreshingDialogView, 0, 0);
             text = array.getString(R.styleable.RefreshingDialogView_text);
             array.recycle();
+        }
+        if (text == null) {
+            text = getResources().getString(R.string.loading_progress);
         }
         mDialog = LoadingDialog.create(text);
     }

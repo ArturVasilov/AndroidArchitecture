@@ -11,11 +11,12 @@ import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.contracts.
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.MoviesResponse;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.ReviewsResponse;
 import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.model.response.VideosResponse;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.AsyncOperator;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.CursorListMapper;
-import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.utils.CursorObservable;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.CursorListMapper;
+import arturvasilov.udacity.nanodegree.popularmoviesdatabinding.rx.CursorObservable;
+import ru.arturvasilov.rxloader.RxUtils;
+import rx.AsyncEmitter;
 import rx.Observable;
-import rx.Subscriber;
+import rx.functions.Action1;
 
 /**
  * @author Artur Vasilov
@@ -35,9 +36,11 @@ public class MoviesRepositoryImpl implements MoviesRepository {
         if (type == MoviesProvider.Type.FAVOURITE) {
             observable = CursorObservable.create(MoviesProvider.movies(type))
                     .map(new CursorListMapper<>(MoviesProvider::fromCursor));
-        } else if (type == MoviesProvider.Type.POPULAR) {
+        }
+        else if (type == MoviesProvider.Type.POPULAR) {
             observable = mService.popularMovies().map(MoviesResponse::getMovies);
-        } else {
+        }
+        else {
             observable = mService.topRatedMovies().map(MoviesResponse::getMovies);
         }
         return observable
@@ -48,7 +51,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
                 .doOnNext(movies -> MoviesProvider.save(movies, type))
                 .zipWith(CursorObservable.create(MoviesProvider.movies(MoviesProvider.Type.FAVOURITE))
                         .map(new CursorListMapper<>(MoviesProvider::fromCursor)), this::markFavourites)
-                .compose(new AsyncOperator<>());
+                .compose(RxUtils.async());
     }
 
     @NonNull
@@ -68,29 +71,29 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     @NonNull
     @Override
     public Observable<Boolean> addToFavourite(@NonNull Movie movie) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        return Observable.fromEmitter(new Action1<AsyncEmitter<Boolean>>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void call(AsyncEmitter<Boolean> emitter) {
                 MoviesProvider.save(movie, MoviesProvider.Type.FAVOURITE);
-                subscriber.onNext(true);
-                subscriber.onCompleted();
+                emitter.onNext(true);
+                emitter.onCompleted();
             }
-        })
-                .compose(new AsyncOperator<>());
+        }, AsyncEmitter.BackpressureMode.LATEST)
+                .compose(RxUtils.async());
     }
 
     @NonNull
     @Override
     public Observable<Boolean> removeFromFavourite(@NonNull Movie movie) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        return Observable.fromEmitter(new Action1<AsyncEmitter<Boolean>>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void call(AsyncEmitter<Boolean> emitter) {
                 MoviesProvider.delete(movie);
-                subscriber.onNext(false);
-                subscriber.onCompleted();
+                emitter.onNext(false);
+                emitter.onCompleted();
             }
-        })
-                .compose(new AsyncOperator<>());
+        }, AsyncEmitter.BackpressureMode.LATEST)
+                .compose(RxUtils.async());
     }
 
     @NonNull
